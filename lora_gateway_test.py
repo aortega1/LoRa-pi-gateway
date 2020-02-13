@@ -97,34 +97,34 @@ while True:
 
     # check for packet rx
     packet = rfm9x.receive()
-    if packet is None or prev_packet:
+    if packet is None:
         display.show()
         display.text('- Waiting for PKT -', 10, 20, 1)
     else:
     prev_packet = packet
-        print('> New Packet!')
+    print('> New Packet!')
         # Decode packet
-        temp_val = pkt_int_to_float(packet[1], packet[2])
-        humid_val = pkt_int_to_float(packet[3], packet[4])
-        pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
+    temp_val = pkt_int_to_float(packet[1], packet[2])
+    humid_val = pkt_int_to_float(packet[3], packet[4])
+    pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
 
         # Display packet information
-        print('Device ID: LoRa Feather #', packet[0])
-        print("Temp: %0.2f C" % temp_val)
-        print("Humid: %0.2f %% " % humid_val)
-        print("Pressure: %0.2f hPa" % pres_val)
+    print('Device ID: LoRa Feather #', packet[0])
+    print("Temp: %0.2f C" % temp_val)
+    print("Humid: %0.2f %% " % humid_val)
+    print("Pressure: %0.2f hPa" % pres_val)
 
         # Send to Feather 1 feeds
-        if packet[0] == 0x01:
-            display.fill(0)
-            display.text('Feather #1 Data RX''d!', 15, 0, 1)
-            display.text('Sending to IO...', 0, 20, 1)
-            display.show()
-            aio.send(temperature_feed_1.key, temp_val)
-            aio.send(humidity_feed_1.key, humid_val)
-            aio.send(pressure_feed_1.key, pres_val)
-            display.text('Sent!', 100, 20, 1)
-            display.show()
+    if packet[0] == 0x01:
+        display.fill(0)
+        display.text('Feather #1 Data RX''d!', 15, 0, 1)
+        display.text('Sending to IO...', 0, 20, 1)
+        display.show()
+        aio.send(temperature_feed_1.key, temp_val)
+        aio.send(humidity_feed_1.key, humid_val)
+        aio.send(pressure_feed_1.key, pres_val)
+        display.text('Sent!', 100, 20, 1)
+        display.show()
         # Send to Feather 2 feeds
 #        if packet[0] == 0x02:
 #            display.fill(0)
@@ -136,5 +136,4 @@ while True:
 #            aio.send(pressure_feed_2.key, pres_val)
 #            display.text('Sent!', 100, 20, 1)
 #            display.show()
-        time.sleep(60)
-  display.show()
+        time.sleep(10)
