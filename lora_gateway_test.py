@@ -67,6 +67,7 @@ prev_packet = None
 
 # Create an instance of the REST client.
 aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
+print(aio)
 
 # Set up Adafruit IO feeds
 temperature_feed_1 = aio.feeds('feather-1-temp')
