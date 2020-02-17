@@ -106,6 +106,7 @@ while True:
         temp_val = pkt_int_to_float(packet[1], packet[2])
         humid_val = pkt_int_to_float(packet[3], packet[4])
         pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
+        batt_val = pkt_int_to_float(packet[8])
 
         # Display packet information
         print('Device ID: LoRa Feather #', packet[0])
