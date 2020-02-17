@@ -7,7 +7,7 @@ by Brent Rubell for Adafruit Industries
 """
 # Import Python System Libraries
 import time
-
+import os
 # Import Adafruit IO REST client.
 from Adafruit_IO import Client
 
@@ -60,10 +60,8 @@ prev_packet = None
 
 # Set to your Adafruit IO username.
 # (go to https://accounts.adafruit.com to find your username)
-ADAFRUIT_IO_USERNAME = 'USER'
-
-# Set to your Adafruit IO key.
-ADAFRUIT_IO_KEY = 'KEY'
+ADAFRUIT_IO_USERNAME = os.getenv('ADAFRUIT_IO_USERNAME')
+ADAFRUIT_IO_KEY = os.environ.get('ADAFRUIT_IO_KEY')
 
 # Create an instance of the REST client.
 aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
