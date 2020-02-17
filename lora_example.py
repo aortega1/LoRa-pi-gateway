@@ -99,6 +99,10 @@ while True:
         prev_packet = packet
         print('> New Packet!')
         # Decode packet
+        print(packet[1])
+        print(packet[2])
+        print(packet[3])
+        print(packet[4])
         temp_val = pkt_int_to_float(packet[1], packet[2])
         humid_val = pkt_int_to_float(packet[3], packet[4])
         pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
