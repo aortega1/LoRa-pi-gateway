@@ -101,18 +101,19 @@ while True:
         display.show()
         display.text('- Waiting for PKT -', 10, 20, 1)
     else:
-    prev_packet = packet
-    print('> New Packet!')
+        prev_packet = packet
+        print('> New Packet!')
         # Decode packet
-    temp_val = pkt_int_to_float(packet[1], packet[2])
-    humid_val = pkt_int_to_float(packet[3], packet[4])
-    pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
-
+        temp_val = pkt_int_to_float(packet[1], packet[2])
+        humid_val = pkt_int_to_float(packet[3], packet[4])
+        pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
+        batt_val = pkt_int_to_float(packet[8])
         # Display packet information
-    print('Device ID: LoRa Feather #', packet[0])
-    print("Temp: %0.2f C" % temp_val)
-    print("Humid: %0.2f %% " % humid_val)
-    print("Pressure: %0.2f hPa" % pres_val)
+        print('Device ID: LoRa Feather #', packet[0])
+        print("Temp: %0.2f C" % temp_val)
+        print("Humid: %0.2f %% " % humid_val)
+        print("Pressure: %0.2f hPa" % pres_val)
+        print("Battery volts =" % batt_val)
 
         # Send to Feather 1 feeds
     if packet[0] == 0x01:
