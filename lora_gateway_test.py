@@ -19,6 +19,11 @@ from digitalio import DigitalInOut, Direction, Pull
 
 # Import SSD1306 module.
 import adafruit_ssd1306
+import os
+
+#get secrets
+ADAFRUIT_IO_USERNAME = os.getenv('ADAFRUIT_IO_USERNAME')
+ADAFRUIT_IO_KEY = os.environ.get('ADAFRUIT_IO_KEY')
 
 # Import RFM9x module
 import adafruit_rfm9x
@@ -58,13 +63,6 @@ RESET = DigitalInOut(board.D25)
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 prev_packet = None
-
-# Set to your Adafruit IO username.(removed for git)
-# (go to https://accounts.adafruit.com to find your username)
-ADAFRUIT_IO_USERNAME = ''
-
-# Set to your Adafruit IO key.(removed for git)
-ADAFRUIT_IO_KEY = ''
 
 
 # Create an instance of the REST client.
