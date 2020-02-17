@@ -89,7 +89,6 @@ def pkt_int_to_float(pkt_val_1, pkt_val_2, pkt_val_3=None):
     return float_val/100
 
 while True:
-    print(packet)
     packet = None
     # draw a box to clear the image
     display.fill(0)
@@ -97,6 +96,8 @@ while True:
 
     # check for packet rx
     packet = rfm9x.receive()
+    print(packet)
+
     if packet is None:
         display.show()
         display.text('- Waiting for PKT -', 10, 20, 1)
