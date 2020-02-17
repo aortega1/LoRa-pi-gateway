@@ -89,6 +89,7 @@ def pkt_int_to_float(pkt_val_1, pkt_val_2, pkt_val_3=None):
     return float_val/100
 
 while True:
+    print(packet)
     packet = None
     # draw a box to clear the image
     display.fill(0)
@@ -106,13 +107,13 @@ while True:
         temp_val = pkt_int_to_float(packet[1], packet[2])
         humid_val = pkt_int_to_float(packet[3], packet[4])
         pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
-        batt_val = pkt_int_to_float(packet[8])
+     #   batt_val = pkt_int_to_float(packet[8])
         # Display packet information
         print('Device ID: LoRa Feather #', packet[0])
         print("Temp: %0.2f C" % temp_val)
         print("Humid: %0.2f %% " % humid_val)
         print("Pressure: %0.2f hPa" % pres_val)
-        print("Battery volts =" % batt_val)
+      #  print("Battery volts =" % batt_val)
 
         # Send to Feather 1 feeds
     if packet[0] == 0x01:
