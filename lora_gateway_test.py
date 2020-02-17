@@ -25,6 +25,7 @@ import os
 ADAFRUIT_IO_USERNAME = os.getenv('ADAFRUIT_IO_USERNAME')
 ADAFRUIT_IO_KEY = os.environ.get('ADAFRUIT_IO_KEY')
 
+print(ADAFRUIT_IO_KEY)
 # Import RFM9x module
 import adafruit_rfm9x
 
