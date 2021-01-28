@@ -126,8 +126,7 @@ while True:
             display.show()
             print(temp_val)
             print(humid_val)
-            print(pres_val
-
+            print(pres_val)
             client.publish('v1/devices/me/telemetry', json.dumps(sensor_data), 1)
 
             display.text('Sent!', 100, 20, 1)
