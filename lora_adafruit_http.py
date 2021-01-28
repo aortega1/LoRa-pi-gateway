@@ -5,6 +5,7 @@ Learn Guide: https://learn.adafruit.com/multi-device-lora-temperature-network
 
 by Brent Rubell for Adafruit Industries
 """
+#/usr/bin/python3
 # Import Python System Libraries
 import time
 import os
