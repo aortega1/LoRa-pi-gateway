@@ -9,8 +9,8 @@ by Brent Rubell for Adafruit Industries
 # Import Python System Libraries
 import time
 import os
-# Import Adafruit IO REST client.
-from Adafruit_IO import Client
+
+import paho.mqtt.client as mqtt
 
 # Import Blinka Libraries
 import busio
@@ -61,11 +61,20 @@ prev_packet = None
 
 # Set to your Adafruit IO username.
 # (go to https://accounts.adafruit.com to find your username)
-ADAFRUIT_IO_USERNAME = os.getenv('ADAFRUIT_IO_USERNAME')
-ADAFRUIT_IO_KEY = os.environ.get('ADAFRUIT_IO_KEY')
+# THINGSBOARD_USERNAME = os.getenv('THINGSBOARD_USERNAME')
+# M0_FEATHER_ACCESS_TOKEN = os.environ.get('M0_FEATHER_ACCESS_TOKEN')
+THINGSBOARD_HOST = '192.168.1.126'
+THINGSBOARD_PORT = 49389
+KEEPALIVE = 60
+ACCESS_TOKEN = 'A1tO9zcKIjDe1DlqQ5ff'
+# Create an instance of the mqtt client.
+client = mqtt.Client()
+# set the access token
+client.username_pw_set(ACCESS_TOKEN)
 
-# Create an instance of the REST client.
-aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
+#connect to things board instance, host, mqtt port, keepalive time
+client.connect(THINGSBOARD_HOST, THINGSBOARD_PORT, KEEPALIVE)
+
 
 # Set up Adafruit IO feeds
 temperature_feed_1 = aio.feeds('feather-1-temp')
@@ -125,9 +134,12 @@ while True:
             print(temp_val)
             print(humid_val)
             print(pres_val)
-            aio.send(temperature_feed_1.key, temp_val)
-            aio.send(humidity_feed_1.key, humid_val)
-            aio.send(pressure_feed_1.key, pres_val)
+            # aio.send(temperature_feed_1.key, temp_val)
+            # aio.send(humidity_feed_1.key, humid_val)
+            # aio.send(pressure_feed_1.key, pres_val)
+
+            client.publish('v1/devices/me/telemetry', json.dumps(temp_val), 1)
+
             display.text('Sent!', 100, 20, 1)
             display.show()
         # Send to Feather 2 feeds
@@ -136,9 +148,13 @@ while True:
             display.text('Feather #2 Data RX''d!', 15, 0, 1)
             display.text('Sending to IO...', 0, 20, 1)
             display.show()
-            aio.send(temperature_feed_2.key, temp_val)
-            aio.send(humidity_feed_2.key, humid_val)
-            aio.send(pressure_feed_2.key, pres_val)
+
+            # aio.send(temperature_feed_2.key, temp_val)
+            # aio.send(humidity_feed_2.key, humid_val)
+            # aio.send(pressure_feed_2.key, pres_val)
+            
+            client.publish('v1/devices/me/telemetry', json.dumps(temp_val), 1)
+
             display.text('Sent!', 100, 20, 1)
             display.show()
         time.sleep(1)
