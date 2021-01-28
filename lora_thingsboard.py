@@ -63,7 +63,7 @@ prev_packet = None
 # (go to https://accounts.adafruit.com to find your username)
 # THINGSBOARD_USERNAME = os.getenv('THINGSBOARD_USERNAME')
 # M0_FEATHER_ACCESS_TOKEN = os.environ.get('M0_FEATHER_ACCESS_TOKEN')
-THINGSBOARD_HOST = '192.168.1.126'
+THINGSBOARD_HOST = '192.168.1.128'
 THINGSBOARD_PORT = 49389
 KEEPALIVE = 60
 ACCESS_TOKEN = 'A1tO9zcKIjDe1DlqQ5ff'
@@ -75,15 +75,6 @@ client.username_pw_set(ACCESS_TOKEN)
 #connect to things board instance, host, mqtt port, keepalive time
 client.connect(THINGSBOARD_HOST, THINGSBOARD_PORT, KEEPALIVE)
 
-
-# Set up Adafruit IO feeds
-temperature_feed_1 = aio.feeds('feather-1-temp')
-humidity_feed_1 = aio.feeds('feather-1-humid')
-pressure_feed_1 = aio.feeds('feather-1-pressure')
-
-temperature_feed_2 = aio.feeds('feather-2-temp')
-humidity_feed_2 = aio.feeds('feather-2-humid')
-pressure_feed_2 = aio.feeds('feather-2-pressure')
 
 def pkt_int_to_float(pkt_val_1, pkt_val_2, pkt_val_3=None):
     """Convert packet data to float.
@@ -114,9 +105,11 @@ while True:
         print(packet[3])
         print(packet[4])
         print(packet[-1])
-        temp_val = pkt_int_to_float(packet[1], packet[2])
-        humid_val = pkt_int_to_float(packet[3], packet[4])
-        pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
+        sensor_data['temperature'] = pkt_int_to_float(packet[1], packet[2])
+        sensor_data['humidity'] = humid_val = pkt_int_to_float(packet[3], packet[4])
+        sensor_data['pressure'] = pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
+
+
      #   batt_val = pkt_int_to_float(packet[8])
 
         # Display packet information
@@ -133,12 +126,9 @@ while True:
             display.show()
             print(temp_val)
             print(humid_val)
-            print(pres_val)
-            # aio.send(temperature_feed_1.key, temp_val)
-            # aio.send(humidity_feed_1.key, humid_val)
-            # aio.send(pressure_feed_1.key, pres_val)
+            print(pres_val
 
-            client.publish('v1/devices/me/telemetry', json.dumps(temp_val), 1)
+            client.publish('v1/devices/me/telemetry', json.dumps(sensor_data), 1)
 
             display.text('Sent!', 100, 20, 1)
             display.show()
@@ -149,11 +139,7 @@ while True:
             display.text('Sending to IO...', 0, 20, 1)
             display.show()
 
-            # aio.send(temperature_feed_2.key, temp_val)
-            # aio.send(humidity_feed_2.key, humid_val)
-            # aio.send(pressure_feed_2.key, pres_val)
-            
-            client.publish('v1/devices/me/telemetry', json.dumps(temp_val), 1)
+            client.publish('v1/devices/me/telemetry', json.dumps(sensor_data), 1)
 
             display.text('Sent!', 100, 20, 1)
             display.show()
