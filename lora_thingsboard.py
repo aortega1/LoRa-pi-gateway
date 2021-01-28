@@ -75,6 +75,7 @@ client.username_pw_set(ACCESS_TOKEN)
 #connect to things board instance, host, mqtt port, keepalive time
 client.connect(THINGSBOARD_HOST, THINGSBOARD_PORT, KEEPALIVE)
 
+sensor_data = {'temperature': 0, 'humidity': 0, 'pressure': 0}
 
 def pkt_int_to_float(pkt_val_1, pkt_val_2, pkt_val_3=None):
     """Convert packet data to float.
