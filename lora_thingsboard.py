@@ -1,10 +1,3 @@
-"""
-Adafruit IO LoRa Gateway
-
-Learn Guide: https://learn.adafruit.com/multi-device-lora-temperature-network
-
-by Brent Rubell for Adafruit Industries
-"""
 #/usr/bin/python3
 # Import Python System Libraries
 import time
@@ -103,11 +96,11 @@ while True:
         prev_packet = packet
         print('> New Packet!')
         # Decode packet
-        print(packet[1])
-        print(packet[2])
-        print(packet[3])
-        print(packet[4])
-        print(packet[-1])
+        # print(packet[1])
+        # print(packet[2])
+        # print(packet[3])
+        # print(packet[4])
+        # print(packet[-1])
         sensor_data['temperature'] = pkt_int_to_float(packet[1], packet[2])
         sensor_data['humidity'] = humid_val = pkt_int_to_float(packet[3], packet[4])
         sensor_data['pressure'] = pres_val = pkt_int_to_float(packet[5], packet[6], packet[7])
@@ -116,11 +109,11 @@ while True:
      #   batt_val = pkt_int_to_float(packet[8])
 
         # Display packet information
-        print('Device ID: LoRa Feather #', packet[0])
-        print("Temp: %0.2f C" % temp_val)
-        print("Humid: %0.2f %% " % humid_val)
-        print("Pressure: %0.2f hPa" % pres_val)
-
+        # print('Device ID: LoRa Feather #', packet[0])
+        # print("Temp: %0.2f C" % temp_val)
+        # print("Humid: %0.2f %% " % humid_val)
+        # print("Pressure: %0.2f hPa" % pres_val)
+        print(json.dumps(sensor_data))
         # Send to Feather 1 feeds
         if packet[0] == 0x01:
             display.fill(0)
